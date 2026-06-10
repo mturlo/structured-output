@@ -5,14 +5,14 @@ Project 03 of [ai-dojo](https://github.com/mturlo/ai-dojo). Compare three struct
 ## Techniques
 
 1. **Prompted JSON** — plain prompt + schema dump, parse + retry
-2. **Tool use** — Anthropic `tools` / OpenAI function calling
-3. **Native `response_format`** — OpenAI `json_schema` strict; Anthropic falls back to tool-use-as-json
+2. **Tool use** — Anthropic `tools` with `tool_choice`, parse from `tool_use` block
+3. **Strict tool use** — Anthropic tool with full JSON schema + forced `tool_choice`, the closest analogue to OpenAI's strict `json_schema` response_format
 
 ## Stack
 
-Python 3.14 · uv · Pydantic v2 · instructor · anthropic · openai · pytest · rich
+Python 3.14 · uv · Pydantic v2 · instructor · anthropic · pytest · rich
 
-Models: `claude-haiku-4-5-20251001`, `gpt-4o-mini`.
+Model: `claude-haiku-4-5-20251001` (Anthropic only — OpenAI dropped).
 
 ## Layout
 
@@ -28,13 +28,13 @@ notes/                   # technique comparison writeup
 
 ```sh
 uv sync
-cp .env.example .env  # fill ANTHROPIC_API_KEY, OPENAI_API_KEY
+cp .env.example .env  # fill ANTHROPIC_API_KEY
 ```
 
 ## Usage
 
 ```sh
-uv run extract --brief fixtures/briefs/01.md --technique tool_use --provider anthropic
+uv run extract --brief fixtures/briefs/01-coffee-subscription.md --technique tool_use
 uv run sweep --briefs fixtures/briefs/ --out runs/
 ```
 
