@@ -1,0 +1,38 @@
+[project]
+name = "structured-output"
+version = "0.1.0"
+description = "Compare structured-output techniques (prompted JSON, tool use, native response_format) on questionnaire extraction."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "pydantic>=2.9",
+    "instructor>=1.6",
+    "anthropic>=0.40",
+    "openai>=1.54",
+    "rich>=13.9",
+    "pyyaml>=6.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.7",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/structured_output"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
